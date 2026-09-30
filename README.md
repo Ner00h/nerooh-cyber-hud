@@ -45,7 +45,7 @@ Basta clonar o repositório e abrir o `index.html` em qualquer navegador:
 
 ```bash
 # Clonar o repositório
-git clone https://github.com/nerooh/nerooh-cyber-hud.git
+git clone https://github.com/Ner00h/nerooh-cyber-hud.git
 
 # Acessar a pasta
 cd nerooh-cyber-hud
@@ -59,5 +59,5 @@ start index.html
 ## 👨‍💻 Autor
 
 - **Carlito Batista (Nerooh)**
-- GitHub: [@nerooh](https://github.com/nerooh)
+- GitHub: [@Ner00h](https://github.com/Ner00h)
 - Website: [nerooh.xyz](https://nerooh.xyz)
