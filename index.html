@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NEROOH.XYZ // CARLITO BATISTA - Cyberpunk HUD Portfolio</title>
+  <meta name="description" content="Dashboard HUD de Carlito Batista - Engenharia, Automação, Impressão 3D e Tecnologia.">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  
+  <!-- Estilos com cache-buster para atualização imediata no navegador -->
+  <link rel="stylesheet" href="styles.css?v=5.1">
+</head>
+<body>
+  <!-- CAMADAS CRT & BACKGROUND HUD -->
+  <div class="gridbg"></div>
+  <div class="vignette"></div>
+  <div class="crt"></div>
+  <div class="scanbar"></div>
+
+  <!-- DYNAMIC SPACE-TIME GRID BACKGROUND (BOTTOM HALF) -->
+  <div class="spacetime-grid-container" id="spacetime-grid-container">
+    <canvas id="spacetime-canvas"></canvas>
+  </div>
+
+  <div class="hud-wrapper">
+    <!-- Top Navigation Header -->
+    <header class="hud-header hud-box corner-amber">
+      <div class="header-left">
+        <a href="#home" class="brand-logo">
+          <span class="logo-triangle">▲</span>
+          <span class="brand-name">NEROOH.XYZ</span>
+        </a>
+      </div>
+
+      <nav class="header-nav">
+        <a href="#home" class="nav-item active"><span class="nav-arrow">&gt;</span> HOME</a>
+        <a href="#projetos" class="nav-item">PROJETOS</a>
+        <a href="#setup" class="nav-item">SETUP</a>
+        <a href="#sobre" class="nav-item">SOBRE</a>
+        <a href="#contato" class="nav-item">CONTATO</a>
+      </nav>
+
+      <div class="header-right">
+        <div class="system-status">
+          <span class="status-label">SYSTEM ONLINE</span>
+          <div class="signal-bars">
+            <span class="bar fill"></span>
+            <span class="bar fill"></span>
+            <span class="bar fill"></span>
+            <span class="bar fill"></span>
+          </div>
+        </div>
+        <div class="system-clock" id="system-clock">12.06.2025 16:42:00</div>
+      </div>
+    </header>
+
+    <!-- MAIN GRID CONTAINER -->
+    <main class="hud-main">
+      
+      <!-- ================= ROW 1: HERO DECK ================= -->
+      <section class="hud-row row-hero" id="home">
+        
+        <!-- MODULE 1: System Boot & Coordinates -->
+        <div class="hud-card card-boot hud-box corner-green">
+          <div class="card-inner">
+            <div class="terminal-boot-log">
+              <p>&gt; INITIALIZING...</p>
+              <p>&gt; LOADING MODULES...</p>
+              <p>&gt; NETWORK ........ <span class="text-ok">OK</span></p>
+              <p>&gt; DATABASE ....... <span class="text-ok">OK</span></p>
+              <p>&gt; INTERFACES ..... <span class="text-ok">OK</span></p>
+              <p>&gt; READY.</p>
+            </div>
+
+            <!-- 3D Holographic Wireframe Globe Canvas -->
+            <div class="wireframe-sphere-container">
+              <canvas id="sphere-canvas" width="130" height="130"></canvas>
+            </div>
+
+            <div class="geo-coordinates">
+              <div class="coord-bracket">[</div>
+              <div class="coord-data">
+                <div class="lat">-15.6014° S</div>
+                <div class="lon">-56.0971° W</div>
+                <div class="city">CUIABÁ/MT</div>
+              </div>
+              <div class="coord-bracket">]</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- MODULE 2: Hero Profile & Identity -->
+        <div class="hud-card card-profile hud-box corner-amber">
+          <div class="profile-bg-layer">
+            <img src="assets/images/carlito_portrait.png" alt="Carlito Batista" class="profile-portrait-img">
+            <div class="profile-center-space"></div>
+            <img src="assets/images/hero_cosmic_clean.png" alt="Cosmic Space and Cruiser" class="profile-cosmic-img">
+          </div>
+
+          <div class="profile-content">
+            <div class="hero-left-spacer"></div>
+            
+            <div class="hero-text-content">
+              <span class="hero-greeting">OLÁ, EU SOU</span>
+              <h1 class="hero-title">CARLITO BATISTA</h1>
+              
+              <div class="hero-tags">
+                <span>ENGENHARIA</span>
+                <span class="dot">•</span>
+                <span>AUTOMAÇÃO</span>
+                <span class="dot">•</span>
+                <span>IMPRESSÃO 3D</span>
+                <span class="dot">•</span>
+                <span>TECH</span>
+              </div>
+
+              <p class="hero-bio">
+                Transformo ideias em soluções reais através de tecnologia, automação, eletrônica e manufatura aditiva.
+              </p>
+
+              <div class="hero-actions-row">
+                <div class="connect-section">
+                  <span class="connect-label">// CONECTE-SE</span>
+                  <div class="social-icons">
+                    <!-- Instagram -->
+                    <a href="https://instagram.com/nero.std" target="_blank" class="social-btn" title="Instagram @nero.std" aria-label="Instagram">
+                      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                      </svg>
+                    </a>
+
+                    <!-- LinkedIn -->
+                    <a href="https://linkedin.com/in/nerooh" target="_blank" class="social-btn" title="LinkedIn /nerooh" aria-label="LinkedIn">
+                      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                        <rect x="2" y="9" width="4" height="12"></rect>
+                        <circle cx="4" cy="4" r="2"></circle>
+                      </svg>
+                    </a>
+
+                    <!-- GitHub -->
+                    <a href="https://github.com/nerooh" target="_blank" class="social-btn" title="GitHub /nerooh" aria-label="GitHub">
+                      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                      </svg>
+                    </a>
+
+                    <!-- Discord -->
+                    <a href="https://discord.gg" target="_blank" class="social-btn" title="Discord /nerooh" aria-label="Discord">
+                      <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                        <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.929 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.894.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+                      </svg>
+                    </a>
+
+                    <!-- YouTube -->
+                    <a href="https://youtube.com/@nerooh" target="_blank" class="social-btn" title="YouTube /@nerooh" aria-label="YouTube">
+                      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path>
+                        <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
+                      </svg>
+                    </a>
+
+                    <!-- Spotify -->
+                    <a href="https://spotify.com" target="_blank" class="social-btn" title="Spotify Nerooh Playlist" aria-label="Spotify">
+                      <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                        <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+
+                <div class="motto-badge">
+                  <span class="motto-line1">'SMALL STEPS</span>
+                  <span class="motto-line2">BIG PROJECTS</span>
+                  <span class="motto-arrow">&gt;</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- MODULE 3: Status Atual & Music Player -->
+        <div class="hud-card card-telemetry hud-box corner-green">
+          <div class="telemetry-header">
+            <span class="hud-section-title">STATUS ATUAL</span>
+            <span class="online-pill"><span class="pulse-dot"></span> ONLINE</span>
+          </div>
+
+          <div class="telemetry-list">
+            <!-- Impressoras -->
+            <div class="telem-row">
+              <div class="telem-icon">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                  <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                  <rect x="6" y="14" width="12" height="8"></rect>
+                </svg>
+              </div>
+              <div class="telem-info">
+                <span class="telem-label">Impressoras</span>
+                <span class="telem-val">3 / 4 online</span>
+              </div>
+            </div>
+
+            <!-- Projeto Atual -->
+            <div class="telem-row">
+              <div class="telem-icon">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <circle cx="12" cy="12" r="4"></circle>
+                  <line x1="12" y1="2" x2="12" y2="4"></line>
+                  <line x1="12" y1="20" x2="12" y2="22"></line>
+                  <line x1="2" y1="12" x2="4" y2="12"></line>
+                  <line x1="20" y1="12" x2="22" y2="12"></line>
+                </svg>
+              </div>
+              <div class="telem-info">
+                <span class="telem-label">Projeto atual</span>
+                <span class="telem-val highlight-amber">Suporte Personalizado</span>
+              </div>
+            </div>
+
+            <!-- Temperatura -->
+            <div class="telem-row">
+              <div class="telem-icon">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"></path>
+                </svg>
+              </div>
+              <div class="telem-info">
+                <span class="telem-label">Temperatura</span>
+                <span class="telem-val">23.7 °C</span>
+              </div>
+            </div>
+
+            <!-- Uptime -->
+            <div class="telem-row">
+              <div class="telem-icon">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+              </div>
+              <div class="telem-info">
+                <span class="telem-label">Uptime do servidor</span>
+                <span class="telem-val" id="server-uptime">2d 14h 32m</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Music Player Widget -->
+          <div class="music-player-box">
+            <div class="music-label">LISTENING TO</div>
+            <div class="music-track-title">
+              <span class="music-note-icon">♫</span> Daft Punk - Around the World
+            </div>
+
+            <div class="visualizer-bars" id="audio-visualizer">
+              <div class="v-bar"></div>
+              <div class="v-bar"></div>
+              <div class="v-bar"></div>
+              <div class="v-bar"></div>
+              <div class="v-bar"></div>
+              <div class="v-bar"></div>
+              <div class="v-bar"></div>
+              <div class="v-bar"></div>
+            </div>
+
+            <div class="player-controls">
+              <button class="player-btn" id="btn-prev" title="Previous Track">|&lt;&lt;</button>
+              <button class="player-btn play-active" id="btn-play-pause" title="Play/Pause">▶ / ||</button>
+              <button class="player-btn" id="btn-next" title="Next Track">&gt;&gt;|</button>
+              <div class="player-time-track">
+                <span id="player-time-cur">02:14</span> / <span id="player-time-total">07:09</span>
+              </div>
+            </div>
+            
+            <div class="player-progress-bar">
+              <div class="progress-fill" id="audio-progress" style="width: 32%;"></div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ================= ROW 2: BIO & QUICK LINKS & CITY CAM ================= -->
+      <section class="hud-row row-mid" id="sobre">
+        
+        <!-- MODULE 4: Sobre Mim -->
+        <div class="hud-card card-about hud-box corner-green">
+          <div class="card-title-bar">
+            <span class="title-decor">&gt;_</span>
+            <h2 class="card-heading">SOBRE MIM</h2>
+          </div>
+
+          <div class="about-grid">
+            <div class="about-text-col">
+              <p class="about-p">
+                Técnico em impressoras, estudante de Engenharia Elétrica e apaixonado por tecnologia, automação, Linux e manufatura aditiva.
+              </p>
+              <p class="about-p">
+                Gosto de criar, automatizar, otimizar e principalmente ver ideias ganhando forma no mundo real.
+              </p>
+              
+              <button class="hud-action-btn" id="btn-ver-mais" onclick="openBioModal()">
+                VER MAIS <span class="btn-arrow">→</span>
+              </button>
+            </div>
+
+            <div class="about-wireframe-col">
+              <div class="wireframe-img-wrapper">
+                <img src="assets/images/wireframe_printer.png" alt="3D Printer Mechanical Assembly Wireframe" class="wireframe-printer-img">
+                <div class="wireframe-annotations">
+                  <span>3D PRINT</span>
+                  <span>AUTOMATION</span>
+                  <span>LINUX</span>
+                  <span>ENGINEERING</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- MODULE 5: Ferramentas Favoritas (Substituindo Links Rápidos duplicados) -->
+        <div class="hud-card card-tools hud-box corner-green">
+          <div class="card-title-bar">
+            <span class="title-decor-box">[]</span>
+            <h2 class="card-heading">FERRAMENTAS FAVORITAS</h2>
+          </div>
+
+          <div class="tools-grid">
+            <!-- 1. Klipper -->
+            <div class="tool-btn" title="Klipper 3D Firmware">
+              <div class="tool-icon-wrap icon-klipper">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="#f97316">
+                  <polygon points="12 2 2 8 2 16 12 22 22 16 22 8 12 2"></polygon>
+                  <circle cx="12" cy="12" r="3" fill="#111"></circle>
+                </svg>
+              </div>
+              <span class="tool-name">Klipper</span>
+            </div>
+
+            <!-- 2. OrcaSlicer -->
+            <div class="tool-btn" title="OrcaSlicer">
+              <div class="tool-icon-wrap icon-orcaslicer">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="#0df2c9">
+                  <path d="M12 2C6.48 2 2 6.48 2 12c0 3.7 2.01 6.94 5 8.65V18c0-1.1.9-2 2-2h6c1.1 0 2 .9 2 2v2.65c2.99-1.71 5-4.95 5-8.65 0-5.52-4.48-10-10-10zm-2 9c-.83 0-1.5-.67-1.5-1.5S9.17 8 10 8s1.5.67 1.5 1.5S10.83 11 10 11zm4 0c-.83 0-1.5-.67-1.5-1.5S13.17 8 14 8s1.5.67 1.5 1.5S14.83 11 14 11z"/>
+                </svg>
+              </div>
+              <span class="tool-name">OrcaSlicer</span>
+            </div>
+
+            <!-- 3. VS Code -->
+            <div class="tool-btn" title="Visual Studio Code">
+              <div class="tool-icon-wrap icon-vscode">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="#007acc">
+                  <path d="M23.15 2.587L18.21.21a1.494 1.494 0 0 0-1.705.29l-9.46 8.63-4.12-3.128a.999.999 0 0 0-1.276.057L.327 7.27a.999.999 0 0 0-.057 1.442L4.05 12 .27 15.288a.999.999 0 0 0 .057 1.442l1.322 1.211a.999.999 0 0 0 1.276.057l4.12-3.128 9.46 8.63c.48.438 1.16.556 1.705.29l4.94-2.377A1.5 1.5 0 0 0 24 20.06V3.94a1.5 1.5 0 0 0-.85-1.353zM18 16.5l-6-4.5 6-4.5v9z"/>
+                </svg>
+              </div>
+              <span class="tool-name">VS Code</span>
+            </div>
+
+            <!-- 4. Fusion 360 -->
+            <div class="tool-btn" title="Autodesk Fusion 360">
+              <div class="tool-icon-wrap icon-fusion">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="#ea580c">
+                  <rect x="3" y="3" width="18" height="18" rx="4" fill="#ea580c"></rect>
+                  <path d="M8 8h8v3h-5v2h4v3h-4v3H8V8z" fill="#fff"></path>
+                </svg>
+              </div>
+              <span class="tool-name">Fusion 360</span>
+            </div>
+
+            <!-- 5. Raspberry Pi -->
+            <div class="tool-btn" title="Raspberry Pi">
+              <div class="tool-icon-wrap icon-raspi">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="#c51a4a">
+                  <circle cx="9" cy="11" r="2.5"></circle>
+                  <circle cx="15" cy="11" r="2.5"></circle>
+                  <circle cx="12" cy="15" r="2.5"></circle>
+                  <circle cx="7" cy="16" r="2"></circle>
+                  <circle cx="17" cy="16" r="2"></circle>
+                  <path d="M10 5c0-1.5 2-2 2-2s2 .5 2 2" stroke="#22c55e" stroke-width="2" fill="none"></path>
+                </svg>
+              </div>
+              <span class="tool-name">Raspberry Pi</span>
+            </div>
+
+            <!-- 6. Arduino -->
+            <div class="tool-btn" title="Arduino">
+              <div class="tool-icon-wrap icon-arduino">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="#00979d">
+                  <circle cx="8" cy="12" r="5" fill="none" stroke="#00979d" stroke-width="2.5"></circle>
+                  <circle cx="16" cy="12" r="5" fill="none" stroke="#00979d" stroke-width="2.5"></circle>
+                  <line x1="6" y1="12" x2="10" y2="12" stroke="#fff" stroke-width="1.5"></line>
+                  <line x1="14" y1="12" x2="18" y2="12" stroke="#fff" stroke-width="1.5"></line>
+                  <line x1="16" y1="10" x2="16" y2="14" stroke="#fff" stroke-width="1.5"></line>
+                </svg>
+              </div>
+              <span class="tool-name">Arduino</span>
+            </div>
+
+            <!-- 7. Tailscale -->
+            <div class="tool-btn" title="Tailscale VPN">
+              <div class="tool-icon-wrap icon-tailscale">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="#fff">
+                  <circle cx="6" cy="6" r="2"></circle>
+                  <circle cx="12" cy="6" r="2"></circle>
+                  <circle cx="18" cy="6" r="2"></circle>
+                  <circle cx="6" cy="12" r="2"></circle>
+                  <circle cx="12" cy="12" r="2"></circle>
+                  <circle cx="18" cy="12" r="2" fill-opacity="0.3"></circle>
+                  <circle cx="6" cy="18" r="2" fill-opacity="0.3"></circle>
+                  <circle cx="12" cy="18" r="2" fill-opacity="0.3"></circle>
+                  <circle cx="18" cy="18" r="2"></circle>
+                </svg>
+              </div>
+              <span class="tool-name">Tailscale</span>
+            </div>
+
+            <!-- 8. Linux -->
+            <div class="tool-btn" title="Linux OS">
+              <div class="tool-icon-wrap icon-linux">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="#facc15">
+                  <ellipse cx="12" cy="13" rx="6" ry="7" fill="#222" stroke="#facc15" stroke-width="1.5"></ellipse>
+                  <ellipse cx="12" cy="14" rx="4" ry="5" fill="#fff"></ellipse>
+                  <ellipse cx="12" cy="6" rx="4" ry="4" fill="#222"></ellipse>
+                  <circle cx="10" cy="5" r="1" fill="#fff"></circle>
+                  <circle cx="14" cy="5" r="1" fill="#fff"></circle>
+                  <polygon points="12 7 10 9 14 9" fill="#f59e0b"></polygon>
+                  <ellipse cx="8" cy="20" rx="3" ry="1.5" fill="#f59e0b"></ellipse>
+                  <ellipse cx="16" cy="20" rx="3" ry="1.5" fill="#f59e0b"></ellipse>
+                </svg>
+              </div>
+              <span class="tool-name">Linux</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- MODULE 6: Cuiabá City Cam -->
+        <div class="hud-card card-citycam hud-box corner-green">
+          <div class="citycam-img-box">
+            <img src="assets/images/cuiaba_cam.png" alt="Cuiabá Cyberpunk Neon Street Cam" class="citycam-photo">
+            <div class="citycam-hud-overlay">
+              <span class="rec-dot">● REC</span>
+              <span class="cam-id">CAM_04</span>
+            </div>
+          </div>
+
+          <div class="citycam-info-bar">
+            <div class="citycam-location">
+              <div class="cam-city">CUIABÁ/MT</div>
+              <div class="cam-coord">-15.6014° S</div>
+              <div class="cam-coord">-56.0971° W</div>
+            </div>
+            <div class="cam-battery-meter">
+              <div class="battery-bars">
+                <span class="bat-bar fill"></span>
+                <span class="bat-bar fill"></span>
+                <span class="bat-bar fill"></span>
+                <span class="bat-bar fill"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ================= ROW 3: PROJETOS EM DESTAQUE ================= -->
+      <section class="hud-row row-projects hud-box corner-amber" id="projetos">
+        
+        <div class="projects-header-bar">
+          <div class="projects-title-group">
+            <span class="decor-circle">[o]</span>
+            <h2 class="projects-heading">PROJETOS EM DESTAQUE</h2>
+          </div>
+
+          <div class="projects-nav-group">
+            <button class="carousel-arrow" id="carousel-prev" title="Projeto Anterior">&lt;</button>
+            <button class="carousel-arrow" id="carousel-next" title="Próximo Projeto">&gt;</button>
+            <a href="#todos-projetos" class="view-all-link" onclick="openAllProjectsModal()">VER TODOS <span class="arr">→</span></a>
+          </div>
+        </div>
+
+        <!-- Cards Carousel Container -->
+        <div class="projects-carousel-container" id="projects-carousel">
+          
+          <!-- PROJECT CARD 1 -->
+          <div class="project-card hud-box corner-green" onclick="openProjectModal(0)">
+            <div class="proj-thumb-wrapper">
+              <img src="assets/images/proj_neptune.png" alt="LEDs & Automação Neptune 2S" class="proj-img">
+              <div class="proj-overlay-hud">
+                <span class="proj-tag-id">PRJ_01</span>
+              </div>
+            </div>
+            <div class="proj-body">
+              <h3 class="proj-title">LEDs & Automação Neptune 2S</h3>
+              <div class="proj-tags">
+                <span class="tag">Klipper</span>
+                <span class="tag">RGB</span>
+                <span class="tag">Automação</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- PROJECT CARD 2 -->
+          <div class="project-card hud-box corner-green" onclick="openProjectModal(1)">
+            <div class="proj-thumb-wrapper">
+              <img src="assets/images/proj_esp8266.png" alt="Controle Wi-Fi ESP8266" class="proj-img">
+              <div class="proj-overlay-hud">
+                <span class="proj-tag-id">PRJ_02</span>
+              </div>
+            </div>
+            <div class="proj-body">
+              <h3 class="proj-title">Controle Wi-Fi ESP8266</h3>
+              <div class="proj-tags">
+                <span class="tag">IoT</span>
+                <span class="tag">Web Server</span>
+                <span class="tag">Mobile</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- PROJECT CARD 3 -->
+          <div class="project-card hud-box corner-green" onclick="openProjectModal(2)">
+            <div class="proj-thumb-wrapper">
+              <img src="assets/images/proj_klipper.png" alt="Servidor Klipper Multi-Instância" class="proj-img">
+              <div class="proj-overlay-hud">
+                <span class="proj-tag-id">PRJ_03</span>
+              </div>
+            </div>
+            <div class="proj-body">
+              <h3 class="proj-title">Servidor Klipper Multi-Instância</h3>
+              <div class="proj-tags">
+                <span class="tag">Linux</span>
+                <span class="tag">Docker</span>
+                <span class="tag">MQTT</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- PROJECT CARD 4 -->
+          <div class="project-card hud-box corner-green" onclick="openProjectModal(3)">
+            <div class="proj-thumb-wrapper">
+              <img src="assets/images/proj_dog.png" alt="Suporte de Garrafa Cachorro" class="proj-img">
+              <div class="proj-overlay-hud">
+                <span class="proj-tag-id">PRJ_04</span>
+              </div>
+            </div>
+            <div class="proj-body">
+              <h3 class="proj-title">Suporte de Garrafa Cachorro</h3>
+              <div class="proj-tags">
+                <span class="tag">3D Print</span>
+                <span class="tag">Design</span>
+                <span class="tag">Produto</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- PROJECT CARD 5 -->
+          <div class="project-card hud-box corner-green" onclick="openProjectModal(4)">
+            <div class="proj-thumb-wrapper">
+              <img src="assets/images/proj_nerostudio.png" alt="Produtos Nero Studio" class="proj-img">
+              <div class="proj-overlay-hud">
+                <span class="proj-tag-id">PRJ_05</span>
+              </div>
+            </div>
+            <div class="proj-body">
+              <h3 class="proj-title">Produtos Nero Studio</h3>
+              <div class="proj-tags">
+                <span class="tag">Design</span>
+                <span class="tag">Impressão 3D</span>
+                <span class="tag">Personalizado</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ================= ROW 4: SETUP / LAB & WIREFRAME LANDSCAPE ================= -->
+      <section class="hud-row row-bottom" id="setup">
+        
+        <!-- SETUP & LAB BOX -->
+        <div class="hud-card card-setup hud-box corner-green">
+          <div class="card-title-bar">
+            <span class="title-decor-circle">[o]</span>
+            <h2 class="card-heading">SETUP / LAB</h2>
+          </div>
+
+          <div class="setup-grid">
+            <!-- Col 1: Photo of Setup / Workshop -->
+            <div class="setup-photo-col">
+              <img src="assets/images/setup_lab.png" alt="Laboratório e Bancada 3D de Carlito" class="setup-workshop-photo">
+            </div>
+
+            <!-- Col 2: Specifications List -->
+            <div class="setup-specs-col">
+              <div class="sub-col-header">MEU SETUP</div>
+              <ul class="specs-list">
+                <li>
+                  <span class="spec-icon">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                      <rect x="4" y="4" width="16" height="16" rx="2"></rect>
+                      <rect x="9" y="9" width="6" height="6"></rect>
+                      <line x1="9" y1="1" x2="9" y2="4"></line>
+                      <line x1="15" y1="1" x2="15" y2="4"></line>
+                      <line x1="9" y1="20" x2="9" y2="23"></line>
+                      <line x1="15" y1="20" x2="15" y2="23"></line>
+                      <line x1="20" y1="9" x2="23" y2="9"></line>
+                      <line x1="20" y1="14" x2="23" y2="14"></line>
+                      <line x1="1" y1="9" x2="4" y2="9"></line>
+                      <line x1="1" y1="14" x2="4" y2="14"></line>
+                    </svg>
+                  </span>
+                  <span class="spec-key">CPU</span>
+                  <span class="spec-val">Ryzen 5 5600</span>
+                </li>
+                <li>
+                  <span class="spec-icon">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                      <rect x="2" y="2" width="20" height="8" rx="2"></rect>
+                      <circle cx="7" cy="6" r="1.5"></circle>
+                      <circle cx="17" cy="6" r="1.5"></circle>
+                      <line x1="6" y1="16" x2="18" y2="16"></line>
+                    </svg>
+                  </span>
+                  <span class="spec-key">GPU</span>
+                  <span class="spec-val">RTX 3060 12GB</span>
+                </li>
+                <li>
+                  <span class="spec-icon">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M6 19v-3"></path>
+                      <path d="M10 19v-3"></path>
+                      <path d="M14 19v-3"></path>
+                      <path d="M18 19v-3"></path>
+                      <rect x="2" y="5" width="20" height="11" rx="1"></rect>
+                    </svg>
+                  </span>
+                  <span class="spec-key">RAM</span>
+                  <span class="spec-val">32GB DDR4</span>
+                </li>
+                <li>
+                  <span class="spec-icon">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                      <rect x="2" y="6" width="20" height="12" rx="2"></rect>
+                      <circle cx="12" cy="12" r="2"></circle>
+                    </svg>
+                  </span>
+                  <span class="spec-key">Armazenamento</span>
+                  <span class="spec-val">1TB NVMe</span>
+                </li>
+                <li>
+                  <span class="spec-icon">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                      <rect x="2" y="3" width="20" height="14" rx="2"></rect>
+                      <line x1="8" y1="21" x2="16" y2="21"></line>
+                      <line x1="12" y1="17" x2="12" y2="21"></line>
+                    </svg>
+                  </span>
+                  <span class="spec-key">Monitor</span>
+                  <span class="spec-val">2x 27" 165Hz</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- HOLOGRAPHIC TERRAIN / MOTTO BOX -->
+        <div class="hud-card card-terrain hud-box corner-amber">
+          <div class="terrain-text">
+            <span>PROJETANDO</span>
+            <span>O AMANHÃ</span>
+            <span>HOJE.</span>
+            <span class="terrain-arrow">&gt;</span>
+          </div>
+
+          <!-- Spacetime Telemetry HUD readout -->
+          <div class="terrain-telemetry">
+            <div class="telemetry-badge">
+              <span class="pulse-dot"></span>
+              <span class="badge-lbl">ESPAÇO-TEMPO // ON</span>
+            </div>
+            <div class="telemetry-data-row">
+              <span class="telemetry-k">CURVATURA:</span>
+              <span class="telemetry-v" id="warp-curvature">0.842 λ</span>
+            </div>
+            <div class="telemetry-data-row">
+              <span class="telemetry-k">GRAVIDADE:</span>
+              <span class="telemetry-v">9.81 m/s²</span>
+            </div>
+            <div class="telemetry-data-row">
+              <span class="telemetry-k">STATUS:</span>
+              <span class="telemetry-v highlight-amber">ESTÁVEL</span>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+    </main>
+
+    <!-- ================= FOOTER / INTERACTIVE TERMINAL CLI ================= -->
+    <footer class="hud-footer hud-box corner-green" id="contato">
+      <div class="footer-cli">
+        <span class="cli-prompt">neroo@xyz:~$</span>
+        <input type="text" id="terminal-input" class="cli-input" placeholder="digite 'help' para comandos..." autocomplete="off" spellcheck="false">
+        <span class="cli-cursor">█</span>
+      </div>
+
+      <div class="footer-manifesto">
+        <div class="manifesto-lines">
+          <div>// PAIXÃO POR TECNOLOGIA</div>
+          <div>// DISCIPLINA NOS PROCESSOS</div>
+          <div>// RESULTADOS NO FUTURO</div>
+        </div>
+        <div class="manifesto-barcode">
+          <span>||||||||||||||||||||||</span>
+        </div>
+      </div>
+    </footer>
+
+    <!-- CLI Terminal Output Drawer (Hidden by default, toggles on command) -->
+    <div class="terminal-drawer" id="terminal-drawer">
+      <div class="drawer-header">
+        <span class="drawer-title">&gt;_ SYSTEM_LOG // CONSOLE OUTPUT</span>
+        <button class="drawer-close" onclick="closeTerminalDrawer()">✕</button>
+      </div>
+      <div class="drawer-content" id="terminal-output">
+        <p class="sys-msg">[SYSTEM] Terminal initialized. Type <span class="text-cmd">help</span> for command list.</p>
+      </div>
+    </div>
+
+  </div> <!-- End HUD Wrapper -->
+
+  <!-- ================= MODALS ================= -->
+  
+  <!-- Bio Modal -->
+  <div class="hud-modal" id="bio-modal">
+    <div class="modal-dialog hud-box corner-amber">
+      <div class="modal-header">
+        <h3>&gt;_ DOSSIÊ COMPLETO // CARLITO BATISTA</h3>
+        <button class="modal-close" onclick="closeBioModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-bio-grid">
+          <img src="assets/images/carlito_portrait.png" alt="Carlito" class="modal-avatar">
+          <div class="modal-bio-info">
+            <h4>Carlito Batista (Nero)</h4>
+            <p class="modal-role">Engenharia Elétrica • Automação • Impressão 3D • Cuiabá/MT</p>
+            <p>Especialista em manutenção avançada e calibração de impressoras 3D FDM/Resina, firmware Klipper, Marlin e RepRap. Experiência sólida em microcontroladores ESP32/ESP8266, Raspberry Pi e infraestrutura de automação com Linux e Docker.</p>
+            <p>Foco na criação de protótipos funcionais, dispositivos IoT para monitoramento de bancada, modelagem paramétrica no Fusion 360 e fabricação digital sob demanda através do <strong>Nero Studio</strong>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Project Details Modal -->
+  <div class="hud-modal" id="project-modal">
+    <div class="modal-dialog hud-box corner-green">
+      <div class="modal-header">
+        <h3 id="modal-proj-title">&gt;_ DETALHES DO PROJETO</h3>
+        <button class="modal-close" onclick="closeProjectModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-proj-content">
+          <img id="modal-proj-img" src="" alt="Projeto" class="modal-proj-banner">
+          <div class="modal-proj-info">
+            <div id="modal-proj-tags" class="proj-tags"></div>
+            <p id="modal-proj-desc" class="modal-proj-description"></p>
+            <div class="modal-proj-specs" id="modal-proj-specs"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Game / Mini Retro Terminal Modal -->
+  <div class="hud-modal" id="game-modal">
+    <div class="modal-dialog hud-box corner-green">
+      <div class="modal-header">
+        <h3>&gt;_ MINI CYBER MATRIX</h3>
+        <button class="modal-close" onclick="closeGameModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <canvas id="matrix-canvas" width="600" height="300" style="width: 100%; height: 300px; background: #000;"></canvas>
+        <p style="text-align: center; font-family: 'Share Tech Mono'; color: #00ff9d; margin-top: 10px;">
+          Pressione ESC para fechar ou digite 'matrix' no terminal.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js?v=5.1"></script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+# Cloudflare & Wrangler
+.wrangler/
+wrangler.toml
+
+# Local utilities and scripts
+scripts/
+
+# OS and temporary files
+.DS_Store
+Thumbs.db
+*.log
+
+# Editor configs
+.vscode/
+.idea/
