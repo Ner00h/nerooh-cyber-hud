@@ -8,6 +8,10 @@
 // ==========================================
 function initSystemClock() {
   const clockEl = document.getElementById('system-clock');
+  const uptimeEl = document.getElementById('server-uptime');
+
+  // Starting simulated uptime: 2 days, 14 hours, 32 minutes, 0 seconds
+  let uptimeSeconds = (2 * 24 * 3600) + (14 * 3600) + (32 * 60);
   
   function updateClock() {
     const now = new Date();
@@ -20,6 +24,16 @@ function initSystemClock() {
     
     if (clockEl) {
       clockEl.textContent = `${day}.${month}.${year} ${hours}:${minutes}:${seconds}`;
+    }
+
+    // Update Uptime
+    uptimeSeconds++;
+    if (uptimeEl) {
+      const d = Math.floor(uptimeSeconds / (24 * 3600));
+      const h = Math.floor((uptimeSeconds % (24 * 3600)) / 3600);
+      const m = Math.floor((uptimeSeconds % 3600) / 60);
+      const s = uptimeSeconds % 60;
+      uptimeEl.textContent = `${d}d ${h}h ${m}m ${s}s`;
     }
   }
 
@@ -653,6 +667,7 @@ function initTerminalCLI() {
   - <span class="text-cmd">contact</span>     : Links de contato e redes
   - <span class="text-cmd">ping</span>        : Teste de conectividade com Cuiabá/MT
   - <span class="text-cmd">matrix</span>      : Inicia animação Matrix Rain
+  - <span class="text-cmd">hack</span>        : [ACESSO RESTRITO]
   - <span class="text-cmd">status</span>      : Diagnóstico geral dos serviços
   - <span class="text-cmd">clear</span>       : Limpa o console de saída
           `);
@@ -693,6 +708,24 @@ function initTerminalCLI() {
         case 'matrix':
           openGameModal();
           break;
+        case 'hack':
+          printLine(">> INICIANDO SEQUÊNCIA DE BYPASS...");
+          let hlines = [
+            "Bypassing firewall [192.168.0.104]...",
+            "Decrypting RSA-2048 keys...",
+            "Access granted. Downloading database...",
+            "WARN: Intrusion detected. Purging logs.",
+            "Connection closed."
+          ];
+          let hdelay = 500;
+          hlines.forEach((l, i) => {
+            setTimeout(() => {
+              printLine(l);
+            }, hdelay);
+            hdelay += 400 + Math.random() * 600;
+          });
+          break;
+
 
         case 'clear':
           output.innerHTML = '<p class="sys-msg">[SYSTEM] Terminal buffer cleared.</p>';
@@ -830,8 +863,29 @@ function initGeolocationAndBattery() {
   }
 }
 
+
+// ==========================================
+// 10. BOOT LOG ANIMATION
+// ==========================================
+function initBootLogAnimation() {
+  const bootLines = document.querySelectorAll('.terminal-boot-log p');
+  if (!bootLines.length) return;
+
+  bootLines.forEach(line => line.style.display = 'none');
+
+  let delay = 200;
+  bootLines.forEach((line, idx) => {
+    setTimeout(() => {
+      line.style.display = 'block';
+    }, delay);
+    // Add varying delays for a realistic boot feel
+    delay += 300 + Math.random() * 400;
+  });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   initGeolocationAndBattery();
+  initBootLogAnimation();
 
   initSystemClock();
   initSphereCanvas();
