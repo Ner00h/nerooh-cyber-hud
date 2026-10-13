@@ -1,4 +1,4 @@
-# 🚀 NEROOH.XYZ // Cyberpunk Sci-Fi HUD Portfolio
+# 🚀 NEROOH // Cyberpunk Sci-Fi HUD Portfolio
 
 > Portfolio pessoal e cockpit interativo de **Carlito Batista (Nerooh)** — Engenharia, Automação, Impressão 3D e Desenvolvimento.
 

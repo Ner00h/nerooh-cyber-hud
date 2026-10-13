@@ -1,5 +1,5 @@
 /* ==========================================================================
-   NEROOH.XYZ - CYBERPUNK HUD OS DESIGN SYSTEM & STYLESHEET
+   NEROOH - CYBERPUNK HUD OS DESIGN SYSTEM & STYLESHEET
    Author: Carlito Batista / Antigravity
    ========================================================================== */
 
@@ -540,7 +540,7 @@ body {
   background: rgba(0, 255, 157, 0.15);
   border-color: var(--neon-green);
   color: #ffffff;
-  box-shadow: 0 0 10px var(--neon-green-glow);
+  box-shadow: 0 0 16px var(--neon-green), inset 0 0 8px rgba(0, 255, 157, 0.2);
   transform: translateY(-2px);
 }
 
@@ -879,7 +879,7 @@ body {
 
 .card-tools .tools-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
   gap: 8px;
   padding: 0 14px;
 }
@@ -903,7 +903,7 @@ body {
   background: rgba(0, 255, 157, 0.12);
   border-color: var(--neon-green);
   transform: translateY(-2px);
-  box-shadow: 0 0 10px var(--neon-green-glow);
+  box-shadow: 0 0 16px var(--neon-green), inset 0 0 8px rgba(0, 255, 157, 0.2);
 }
 
 .card-tools .tool-icon-wrap {
@@ -915,7 +915,7 @@ body {
 }
 
 .card-tools .tool-btn:hover .tool-icon-wrap {
-  transform: scale(1.15);
+  transform: scale(1.2) rotate(-5deg);
 }
 
 .card-tools .tool-name {
