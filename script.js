@@ -174,6 +174,8 @@ function initSpacetimeGrid() {
   let time = 0;
   let animId = null;
 
+  const particles = Array.from({length: 60}, () => ({x: Math.random(), y: Math.random(), speedY: 0.0005 + Math.random() * 0.001, speedX: (Math.random() - 0.5) * 0.0005, size: Math.random() * 1.5}));
+
   // Mouse interaction for spacetime curvature
   const mouse = { x: -9999, y: -9999, targetX: -9999, targetY: -9999, active: false };
   window.addEventListener('mousemove', (e) => {
@@ -212,7 +214,7 @@ function initSpacetimeGrid() {
     }
 
     const originX = w / 2;
-    const horizonY = Math.max(20, h * 0.05);
+    const horizonY = h * 0.35;
     const maxSpread = Math.max(w * 1.85, 1500);
 
     // Wandering singularity / gravity well center
@@ -347,6 +349,23 @@ function initSpacetimeGrid() {
     ctx.fillStyle = horizonGrad;
     ctx.fillRect(0, horizonY - 15, w, 45);
     ctx.restore();
+
+    // 5. Draw drifting data node particles
+    ctx.fillStyle = 'rgba(0, 255, 157, 0.4)';
+    particles.forEach(p => {
+      p.y -= p.speedY;
+      p.x += p.speedX;
+      if (p.y < 0) p.y = 1;
+      if (p.x < 0) p.x = 1;
+      if (p.x > 1) p.x = 0;
+
+      const sx = p.x * w;
+      const sy = p.y * h;
+
+      ctx.beginPath();
+      ctx.arc(sx, sy, p.size, 0, Math.PI * 2);
+      ctx.fill();
+    });
 
     // Advance time
     time += 0.024;
@@ -868,6 +887,9 @@ function initGeolocationAndBattery() {
 // 10. BOOT LOG ANIMATION
 // ==========================================
 function initBootLogAnimation() {
+  document.body.classList.add('glitch-active');
+  setTimeout(() => document.body.classList.remove('glitch-active'), 400);
+
   const bootLines = document.querySelectorAll('.terminal-boot-log p');
   if (!bootLines.length) return;
 
