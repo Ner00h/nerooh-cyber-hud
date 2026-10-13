@@ -1,5 +1,5 @@
 /**
- * NEROOH.XYZ - CYBERPUNK HUD OS LOGIC & ANIMATIONS
+ * NEROOH - CYBERPUNK HUD OS LOGIC & ANIMATIONS
  * Interactive Systems: Hologram Globe, Terrain Mesh, Audio Synth, Terminal CLI
  */
 
@@ -362,9 +362,10 @@ function initSpacetimeGrid() {
 // 4. MUSIC PLAYER & WEB AUDIO SYNTHESIZER
 // ==========================================
 let audioContext = null;
+let analyser = null;
+let source = null;
 let isPlaying = false;
-let synthTimer = null;
-let currentProgress = 32;
+let animationId = null;
 
 function initAudioPlayer() {
   const playBtn = document.getElementById('btn-play-pause');
@@ -372,84 +373,141 @@ function initAudioPlayer() {
   const nextBtn = document.getElementById('btn-next');
   const progressBar = document.getElementById('audio-progress');
   const curTimeEl = document.getElementById('player-time-cur');
+  const totalTimeEl = document.getElementById('player-time-total');
   const visualizerBars = document.querySelectorAll('.v-bar');
+  const audioEl = document.getElementById('local-audio');
+  const fileInput = document.getElementById('audio-upload');
+  const trackNameWrap = document.querySelector('.music-track-title');
+  const trackNameLabel = document.getElementById('track-name');
 
-  // Funk bass notes for "Around the World"
-  const notes = [130.81, 146.83, 164.81, 174.61, 196.00, 220.00, 246.94];
-  let noteIdx = 0;
+  if (!audioEl || !fileInput || !trackNameWrap) return;
 
-  function playSynthNote() {
-    if (!audioContext || !isPlaying) return;
-    try {
-      const osc = audioContext.createOscillator();
-      const gain = audioContext.createGain();
+  // Simulate stopping the default animation when there is no playing audio
+  visualizerBars.forEach(b => b.style.animationPlayState = 'paused');
+  visualizerBars.forEach(b => b.style.height = '10%');
 
-      osc.type = 'sawtooth';
-      const freq = notes[noteIdx % notes.length];
-      osc.frequency.setValueAtTime(freq, audioContext.currentTime);
+  // Trigger file selection on click
+  trackNameWrap.addEventListener('click', () => {
+    fileInput.click();
+  });
 
-      // Lowpass filter for warm cyber Daft Punk bass
-      const filter = audioContext.createBiquadFilter();
-      filter.type = 'lowpass';
-      filter.frequency.setValueAtTime(650, audioContext.currentTime);
-
-      gain.gain.setValueAtTime(0.08, audioContext.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.28);
-
-      osc.connect(filter);
-      filter.connect(gain);
-      gain.connect(audioContext.destination);
-
-      osc.start();
-      osc.stop(audioContext.currentTime + 0.3);
-      noteIdx++;
-    } catch (e) {
-      console.warn("Audio node error", e);
+  fileInput.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const url = URL.createObjectURL(file);
+      audioEl.src = url;
+      trackNameLabel.textContent = file.name;
+      audioEl.load();
+      // Setup Web Audio API on load
+      setupAudioContext();
+      audioEl.play().then(() => {
+        isPlaying = true;
+        updatePlayBtn();
+        visualize();
+      }).catch(err => console.error(err));
     }
-  }
+  });
 
-  function togglePlay() {
+  function setupAudioContext() {
     if (!audioContext) {
       audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      analyser = audioContext.createAnalyser();
+      source = audioContext.createMediaElementSource(audioEl);
+      source.connect(analyser);
+      analyser.connect(audioContext.destination);
+      analyser.fftSize = 64; // Small enough to get around 8 distinct bars easily
     }
     if (audioContext.state === 'suspended') {
       audioContext.resume();
     }
+  }
 
-    isPlaying = !isPlaying;
+  function togglePlay() {
+    setupAudioContext();
+    if (audioEl.paused) {
+      audioEl.play();
+      isPlaying = true;
+      visualize();
+    } else {
+      audioEl.pause();
+      isPlaying = false;
+      cancelAnimationFrame(animationId);
+      visualizerBars.forEach(b => b.style.height = '10%');
+    }
+    updatePlayBtn();
+  }
+
+  function updatePlayBtn() {
     if (isPlaying) {
       playBtn.classList.add('play-active');
       playBtn.textContent = '❚❚';
-      synthTimer = setInterval(playSynthNote, 280);
-      visualizerBars.forEach(b => b.style.animationPlayState = 'running');
     } else {
       playBtn.classList.remove('play-active');
       playBtn.textContent = '▶';
-      clearInterval(synthTimer);
-      visualizerBars.forEach(b => b.style.animationPlayState = 'paused');
     }
   }
 
   if (playBtn) playBtn.addEventListener('click', togglePlay);
-  if (prevBtn) prevBtn.addEventListener('click', () => { currentProgress = Math.max(5, currentProgress - 15); updateProgress(); });
-  if (nextBtn) nextBtn.addEventListener('click', () => { currentProgress = Math.min(95, currentProgress + 15); updateProgress(); });
 
-  function updateProgress() {
-    if (progressBar) progressBar.style.width = currentProgress + '%';
-    const totalSecs = 7 * 60 + 9;
-    const curSecs = Math.floor((currentProgress / 100) * totalSecs);
-    const m = String(Math.floor(curSecs / 60)).padStart(2, '0');
-    const s = String(curSecs % 60).padStart(2, '0');
-    if (curTimeEl) curTimeEl.textContent = `${m}:${s}`;
-  }
+  if (prevBtn) prevBtn.addEventListener('click', () => {
+    audioEl.currentTime = Math.max(0, audioEl.currentTime - 10);
+  });
 
-  // Progress ticker
-  setInterval(() => {
-    if (isPlaying) {
-      currentProgress = (currentProgress + 0.2) % 100;
-      updateProgress();
+  if (nextBtn) nextBtn.addEventListener('click', () => {
+    audioEl.currentTime = Math.min(audioEl.duration, audioEl.currentTime + 10);
+  });
+
+  audioEl.addEventListener('timeupdate', () => {
+    if (audioEl.duration) {
+      const prog = (audioEl.currentTime / audioEl.duration) * 100;
+      if (progressBar) progressBar.style.width = prog + '%';
+
+      const curM = String(Math.floor(audioEl.currentTime / 60)).padStart(2, '0');
+      const curS = String(Math.floor(audioEl.currentTime % 60)).padStart(2, '0');
+      if (curTimeEl) curTimeEl.textContent = `${curM}:${curS}`;
     }
-  }, 1000);
+  });
+
+  audioEl.addEventListener('loadedmetadata', () => {
+    const totM = String(Math.floor(audioEl.duration / 60)).padStart(2, '0');
+    const totS = String(Math.floor(audioEl.duration % 60)).padStart(2, '0');
+    if (totalTimeEl) totalTimeEl.textContent = `${totM}:${totS}`;
+  });
+
+  audioEl.addEventListener('ended', () => {
+    isPlaying = false;
+    updatePlayBtn();
+    cancelAnimationFrame(animationId);
+    visualizerBars.forEach(b => b.style.height = '10%');
+  });
+
+  function visualize() {
+    if (!isPlaying) return;
+
+    // Disable the CSS animation to control it with JS
+    visualizerBars.forEach(b => {
+      b.style.animation = 'none';
+    });
+
+    const bufferLength = analyser.frequencyBinCount;
+    const dataArray = new Uint8Array(bufferLength);
+    analyser.getByteFrequencyData(dataArray);
+
+    // Map 8 bars to the frequency data
+    const step = Math.floor(bufferLength / visualizerBars.length);
+    visualizerBars.forEach((bar, i) => {
+      let sum = 0;
+      for (let j = 0; j < step; j++) {
+        sum += dataArray[i * step + j];
+      }
+      const avg = sum / step;
+      // Convert to percentage (0-255) to height (10-100%)
+      const heightPerc = 10 + (avg / 255) * 90;
+      bar.style.height = `${heightPerc}%`;
+    });
+
+    animationId = requestAnimationFrame(visualize);
+  }
 }
 
 // ==========================================
@@ -568,7 +626,7 @@ function initTerminalCLI() {
 
   function printLine(text, isCmd = false) {
     const p = document.createElement('p');
-    p.innerHTML = isCmd ? `<span class="cli-prompt">neroo@xyz:~$</span> <span class="text-cmd">${text}</span>` : text;
+    p.innerHTML = isCmd ? `<span class="cli-prompt">nerooh:~$</span> <span class="text-cmd">${text}</span>` : text;
     output.appendChild(p);
     output.scrollTop = output.scrollHeight;
   }
@@ -703,14 +761,83 @@ window.addEventListener('keydown', (e) => {
 });
 
 // ==========================================
-// 8. INITIALIZE EVERYTHING ON DOM READY
+// 9. INITIALIZE EVERYTHING ON DOM READY
 // ==========================================
+
+// ==========================================
+// 8. GEOLOCATION & BATTERY STATUS
+// ==========================================
+function initGeolocationAndBattery() {
+  // Geolocation
+  if ('geolocation' in navigator) {
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+
+        const latStr = lat >= 0 ? `${lat.toFixed(4)}° N` : `${Math.abs(lat).toFixed(4)}° S`;
+        const lonStr = lon >= 0 ? `${lon.toFixed(4)}° E` : `${Math.abs(lon).toFixed(4)}° W`;
+
+        document.getElementById('boot-lat').textContent = latStr;
+        document.getElementById('boot-lon').textContent = lonStr;
+        document.getElementById('cam-lat').textContent = latStr;
+        document.getElementById('cam-lon').textContent = lonStr;
+
+        try {
+          // Reverse geocoding via Nominatim
+          const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`);
+          if (res.ok) {
+            const data = await res.json();
+            const city = data.address.city || data.address.town || data.address.village || 'UNKNOWN';
+            const state = data.address.state || 'UNKNOWN';
+            const locationStr = `${city.toUpperCase()}/${state.toUpperCase()}`;
+
+            document.getElementById('boot-city').textContent = locationStr;
+            document.getElementById('cam-city').textContent = locationStr;
+          }
+        } catch (err) {
+          console.warn("Reverse geocoding failed", err);
+        }
+      },
+      (err) => {
+        console.warn("Geolocation denied or failed", err);
+      }
+    );
+  }
+
+  // Battery
+  if ('getBattery' in navigator) {
+    navigator.getBattery().then(battery => {
+      function updateBatteryUI() {
+        const level = battery.level * 100;
+        const barsContainer = document.getElementById('battery-bars');
+        if (!barsContainer) return;
+
+        const bars = barsContainer.querySelectorAll('.bat-bar');
+        bars.forEach((bar, index) => {
+          // 4 bars total: each represents 25%
+          if (level > index * 25) {
+            bar.classList.add('fill');
+          } else {
+            bar.classList.remove('fill');
+          }
+        });
+      }
+
+      updateBatteryUI();
+      battery.addEventListener('levelchange', updateBatteryUI);
+    });
+  }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+  initGeolocationAndBattery();
+
   initSystemClock();
   initSphereCanvas();
   initSpacetimeGrid();
   initAudioPlayer();
   initCarousel();
   initTerminalCLI();
-  console.log("%c[NEROOH.XYZ] Cyberpunk HUD OS Initialized successfully.", "color: #00ff9d; font-weight: bold;");
+  console.log("%c[NEROOH] Cyberpunk HUD OS Initialized successfully.", "color: #00ff9d; font-weight: bold;");
 });

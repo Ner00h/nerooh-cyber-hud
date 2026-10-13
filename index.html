@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NEROOH.XYZ // CARLITO BATISTA - Cyberpunk HUD Portfolio</title>
+  <title>NEROOH // CARLITO BATISTA - Cyberpunk HUD Portfolio</title>
   <meta name="description" content="Dashboard HUD de Carlito Batista - Engenharia, Automação, Impressão 3D e Tecnologia.">
   
   <!-- Google Fonts -->
@@ -32,7 +32,7 @@
       <div class="header-left">
         <a href="#home" class="brand-logo">
           <span class="logo-triangle">▲</span>
-          <span class="brand-name">NEROOH.XYZ</span>
+          <span class="brand-name">NEROOH</span>
         </a>
       </div>
 
@@ -84,9 +84,9 @@
             <div class="geo-coordinates">
               <div class="coord-bracket">[</div>
               <div class="coord-data">
-                <div class="lat">-15.6014° S</div>
-                <div class="lon">-56.0971° W</div>
-                <div class="city">CUIABÁ/MT</div>
+                <div class="lat" id="boot-lat">-15.6014° S</div>
+                <div class="lon" id="boot-lon">-56.0971° W</div>
+                <div class="city" id="boot-city">CUIABÁ/MT</div>
               </div>
               <div class="coord-bracket">]</div>
             </div>
@@ -257,8 +257,10 @@
           <!-- Music Player Widget -->
           <div class="music-player-box">
             <div class="music-label">LISTENING TO</div>
-            <div class="music-track-title">
-              <span class="music-note-icon">♫</span> Daft Punk - Around the World
+            <div class="music-track-title" style="cursor: pointer;" title="Clique para escolher uma música">
+              <span class="music-note-icon">♫</span> <span id="track-name">Daft Punk - Around the World</span>
+              <input type="file" id="audio-upload" accept="audio/*" style="display: none;">
+              <audio id="local-audio" style="display: none;"></audio>
             </div>
 
             <div class="visualizer-bars" id="audio-visualizer">
@@ -455,12 +457,12 @@
 
           <div class="citycam-info-bar">
             <div class="citycam-location">
-              <div class="cam-city">CUIABÁ/MT</div>
-              <div class="cam-coord">-15.6014° S</div>
-              <div class="cam-coord">-56.0971° W</div>
+              <div class="cam-city" id="cam-city">CUIABÁ/MT</div>
+              <div class="cam-coord" id="cam-lat">-15.6014° S</div>
+              <div class="cam-coord" id="cam-lon">-56.0971° W</div>
             </div>
             <div class="cam-battery-meter">
-              <div class="battery-bars">
+              <div class="battery-bars" id="battery-bars">
                 <span class="bat-bar fill"></span>
                 <span class="bat-bar fill"></span>
                 <span class="bat-bar fill"></span>
@@ -710,7 +712,7 @@
     <!-- ================= FOOTER / INTERACTIVE TERMINAL CLI ================= -->
     <footer class="hud-footer hud-box corner-green" id="contato">
       <div class="footer-cli">
-        <span class="cli-prompt">neroo@xyz:~$</span>
+        <span class="cli-prompt">nerooh:~$</span>
         <input type="text" id="terminal-input" class="cli-input" placeholder="digite 'help' para comandos..." autocomplete="off" spellcheck="false">
         <span class="cli-cursor">█</span>
       </div>
